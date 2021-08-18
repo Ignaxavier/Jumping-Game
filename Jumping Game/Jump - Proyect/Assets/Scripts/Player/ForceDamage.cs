@@ -13,6 +13,9 @@ public class ForceDamage : MonoBehaviour
     [SerializeField]
     private         GameObject          _downDamageObject       =       null;
 
+    private         Fire                upFire                  =       null;
+    private         Fire                downFire                =       null;
+
     [Header("Velocitys")]
     [SerializeField]
     [Tooltip("Velocidad en que se activa el daño de salto")]
@@ -27,8 +30,8 @@ public class ForceDamage : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        _upDamageObject.SetActive(false);
-        _downDamageObject.SetActive(false);
+        upFire = _upDamageObject.GetComponent<Fire>();
+        downFire = _downDamageObject.GetComponent<Fire>();
     }
 
     void Update()
@@ -41,11 +44,11 @@ public class ForceDamage : MonoBehaviour
     {
         if(rb.velocity.y < _downDamageVelocity)
         {
-            _downDamageObject.SetActive(true);
+            downFire._anim.SetTrigger("Start");
         }
         else if (rb.velocity.y > _downDamageVelocity)
         {
-            _downDamageObject.SetActive(false);
+            downFire._anim.SetTrigger("End");
         }
     }
 
@@ -53,11 +56,11 @@ public class ForceDamage : MonoBehaviour
     {
         if (rb.velocity.y > _upDamageVelocity)
         {
-            _upDamageObject.SetActive(true);
+            upFire._anim.SetTrigger("Start");
         }
         else if (rb.velocity.y < _upDamageVelocity)
         {
-            _upDamageObject.SetActive(false);
+            upFire._anim.SetTrigger("End");
         }
     }
 }

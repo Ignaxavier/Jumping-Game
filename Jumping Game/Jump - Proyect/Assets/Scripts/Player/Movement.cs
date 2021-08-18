@@ -6,6 +6,8 @@ public class Movement : MonoBehaviour
 {
     private         Rigidbody2D     rb;
 
+    private         Jumping         jump;
+
     [SerializeField]
     private         string          _movementInput      =       "Horizontal";
 
@@ -16,13 +18,14 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        jump = GetComponent<Jumping>();
     }
 
     void Update()
     {
-        if(Input.GetAxis(_movementInput) != 0)
+        if(Input.GetAxis(_movementInput) != 0 && !jump.isDead)
         {
-            rb.velocity = (Vector2.right * Input.GetAxis(_movementInput) * _movementSpeed * Time.deltaTime) + Vector2.up * rb.velocity.y;
+            rb.velocity = (Vector2.right * Input.GetAxis(_movementInput) * _movementSpeed * 3 * Time.deltaTime) + Vector2.up * rb.velocity.y;
         }
     }
 }
