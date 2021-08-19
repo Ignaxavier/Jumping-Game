@@ -29,22 +29,6 @@ public class Jumping : MonoBehaviour
     [Header("Fall")]
 
     [SerializeField]
-    [Range(0, 2f)]
-    [Tooltip("Distancia donde empieza a frenar el personaje")]
-    private         float           _distanceOfSlowFall  =       1.7f;
-
-    [SerializeField]
-    [Tooltip("Altura minima donde el freno se habilita")]
-    private         float           _distanceOfSlowWorks =       12f;
-
-    private         bool            slowFallAvalible     =       false;
-
-    [SerializeField]
-    [Range(0, 0.5f)]
-    [Tooltip("Distancia de frenado que se suma al rebotar en la cama elástica")]
-    private         float           _slowFall           =       0f;
-
-    [SerializeField]
     [Tooltip("Multiplicador de velocidad a la caida")]
     private         float           _fallMultiplier     =       2.5f;
 
@@ -57,6 +41,28 @@ public class Jumping : MonoBehaviour
 
     [HideInInspector]
     public          bool            isFalling;
+
+    [Header("SlowFall")]
+
+    [SerializeField]
+    [Range(0, 2f)]
+    [Tooltip("Distancia donde empieza a frenar el personaje")]
+    private         float           _distanceOfSlowFall =      1.7f;
+
+    [SerializeField]
+    [Tooltip("Altura minima donde el freno se habilita")]
+    private         float           _distanceOfSlowWorks =     12f;
+
+    private bool slowFallAvalible = false;
+
+    [SerializeField]
+    [Range(0, 0.5f)]
+    [Tooltip("Distancia de frenado que se suma al rebotar en la cama elástica")]
+    private         float           _slowFall            =     0f;
+
+    [SerializeField]
+    [Tooltip("Valor del angular drag del rigibody")]
+    private         float           _slowVelocityPenalized =   12f;
 
     [HideInInspector]
     public          bool            isDead              =      false;
@@ -101,7 +107,7 @@ public class Jumping : MonoBehaviour
 
                 if(Vector2.Distance(transform.position, _spring.position) < _distanceOfSlowFall && slowFallAvalible && transform.position.y - 1.5f > _spring.position.y + 0.5f)
                 {
-                    rb.drag = 20f;
+                    rb.drag = _slowVelocityPenalized;
 
                     gm.isSlow = true;
                 }
@@ -157,6 +163,7 @@ public class Jumping : MonoBehaviour
 
         if(collision.gameObject.layer == 8)
         {
+            gm.isSlow = false;
             isDead = true;
         }
     }

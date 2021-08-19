@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
     [SerializeField]
     [Range(20, 100)]
     private         float           _movementSpeed      =       0f;
-
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
