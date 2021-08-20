@@ -45,7 +45,7 @@ public class Jumping : MonoBehaviour
     [Header("SlowFall")]
 
     [SerializeField]
-    [Range(0, 2f)]
+    [Range(0, 5f)]
     [Tooltip("Distancia donde empieza a frenar el personaje")]
     private         float           _distanceOfSlowFall =      1.7f;
 
@@ -66,6 +66,9 @@ public class Jumping : MonoBehaviour
 
     [HideInInspector]
     public          bool            isDead              =      false;
+
+    [HideInInspector]
+    public          bool            isStartJump         =      false;
 
     private         bool            isTouchingSpring;
 
@@ -92,6 +95,7 @@ public class Jumping : MonoBehaviour
         {
             rb.velocity = (Vector2.up * _jumpVelocity * velocityMultiplier * Time.deltaTime) + Vector2.right * rb.velocity.x;
             alreadyJump = true;
+            isStartJump = true;
         }
     }
 
@@ -101,11 +105,15 @@ public class Jumping : MonoBehaviour
         {
             if(_fallCoutdown <= 0)
             {
+                if (alreadyJump) 
+                {
+                    gm.isSlow = false;
+                }
                 isFalling = true;
 
                 rb.velocity += Vector2.up * Physics2D.gravity.y * (_fallMultiplier - 1) * Time.deltaTime;
 
-                if(Vector2.Distance(transform.position, _spring.position) < _distanceOfSlowFall && slowFallAvalible && transform.position.y - 1.5f > _spring.position.y + 0.5f)
+                if(Vector2.Distance(transform.position, _spring.position) < _distanceOfSlowFall && slowFallAvalible)
                 {
                     rb.drag = _slowVelocityPenalized;
 
@@ -115,8 +123,12 @@ public class Jumping : MonoBehaviour
             }
             else
             {
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-                _fallCoutdown -= Time.deltaTime;
+                if (alreadyJump && slowFallAvalible)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, 0);
+                    gm.isSlow = true;
+                    _fallCoutdown -= Time.deltaTime;
+                }
             }
         }
     }
@@ -143,7 +155,7 @@ public class Jumping : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.layer == 9)
+        if(collision.gameObject.layer == 9 && ! isDead)
         {
             gm.isSlow = false;
 
