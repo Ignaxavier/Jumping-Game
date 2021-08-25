@@ -55,6 +55,10 @@ public class Jumping : MonoBehaviour
     private         float           _distanceOfSlowFall             =      1.7f;
 
     [SerializeField]
+    [Tooltip("Distancia en que deja de sumar el Slow")]
+    private         float           _limitOfSlowFall                =       0f;
+
+    [SerializeField]
     [Tooltip("Altura minima donde el freno se habilita")]
     private         float           _distanceOfSlowWorks            =     12f;
 
@@ -114,6 +118,8 @@ public class Jumping : MonoBehaviour
 
     private void Fall()
     {
+        _distanceOfSlowFall = Mathf.Clamp(_distanceOfSlowFall , 0, _limitOfSlowFall);
+
         if (rb.velocity.y < 0)
         {
             if(_fallCoutdown <= 0)

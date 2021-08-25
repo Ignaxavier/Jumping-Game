@@ -26,6 +26,11 @@ public class ForceDamage : MonoBehaviour
     [Range(-1000, 0)]
     private         float               _downDamageVelocity     =       -85f;
 
+    [Header("Camera Shake")]
+    [SerializeField]
+    private         CameraShake         _camShake               =       null;
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -55,11 +60,13 @@ public class ForceDamage : MonoBehaviour
             if (rb.velocity.y < _downDamageVelocity)
             {
                 downFire._anim.SetTrigger("Start");
+                _camShake._shake = true;
                 upFire._anim.SetTrigger("Nothing");
             }
             else if (rb.velocity.y > _downDamageVelocity)
             {
                 downFire._anim.SetTrigger("End");
+                _camShake._shake = false;
             }
         }
     }
@@ -71,10 +78,12 @@ public class ForceDamage : MonoBehaviour
             if (rb.velocity.y > _upDamageVelocity)
             {
                 upFire._anim.SetTrigger("Start");
+                _camShake._shake = true;
                 downFire._anim.SetTrigger("Nothing");
             }
             else if (rb.velocity.y < _upDamageVelocity)
             {
+                _camShake._shake = false;
                 upFire._anim.SetTrigger("End");
             }
         }

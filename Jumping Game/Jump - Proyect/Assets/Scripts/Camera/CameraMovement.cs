@@ -6,13 +6,15 @@ public class CameraMovement : MonoBehaviour
 {
     private         Camera          cam;
 
-    private         Vector3         originPosition;
+    [HideInInspector]
+    public          Vector3         originPosition;
 
     [SerializeField]
-    private         Vector3         _limitY;
+    private         Vector3         _limitY         =       new Vector3(0, 0, 0);
 
-    [SerializeField]
-    private         GameObject      _player         =       null;
+    public          GameObject      _player         =       null;
+
+    public          float           _playerHeightOffset     =       0f;
 
     [SerializeField]
     [Range(5, 10)]
@@ -23,7 +25,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Awake()
     {
-        originPosition = transform.position;
+        originPosition = new Vector3(transform.position.x, _player.transform.position.y + _playerHeightOffset, transform.position.z);
 
         cam = GetComponent<Camera>();
     }
