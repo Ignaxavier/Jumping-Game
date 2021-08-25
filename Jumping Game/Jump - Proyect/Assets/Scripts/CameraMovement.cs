@@ -9,14 +9,17 @@ public class CameraMovement : MonoBehaviour
     private         Vector3         originPosition;
 
     [SerializeField]
-    private         GameObject      _player;
+    private         Vector3         _limitY;
+
+    [SerializeField]
+    private         GameObject      _player         =       null;
 
     [SerializeField]
     [Range(5, 10)]
     private         float           _sizeLimit      =       5f;
 
     [SerializeField]
-    private         Transform       _spring;
+    private         Transform       _spring         =       null;
 
     private void Awake()
     {
@@ -31,6 +34,10 @@ public class CameraMovement : MonoBehaviour
         {
             transform.position = originPosition;
             cam.orthographicSize = 5;
+        }
+        else if(_player.transform.position.y > _limitY.y)
+        {
+            transform.position = _limitY;
         }
         else
         {

@@ -7,12 +7,23 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private         Jumping         player;
 
+    public          float           _maxHeight      =       0f;
+
     public          float           _timeLive       =       0f;
+
+    public          float           _score          =       0f;
+
+    [SerializeField]
+    [Tooltip("Valor que se multiplica al puntaje")]
+    private         float           scoreMultiplyer =       1.5f;
 
     [SerializeField]
     private         Grayscale[]     grayscaleObjects;
 
+    [HideInInspector]
     public          bool            isSlow          =       false;
+
+    private         bool            isFinish        =       false;
 
     private void Awake()
     {
@@ -25,6 +36,15 @@ public class GameManager : MonoBehaviour
     {
         Grayscale();
         LiveTime();
+
+        if (player.isDead & !isFinish)
+        {
+            _score = Mathf.Round((_timeLive + _maxHeight) * scoreMultiplyer);
+            
+            Debug.Log("Has sobrevivido " + Mathf.Round(_timeLive) + " segundos y has alcanzado los " + _maxHeight + " metros.");
+            Debug.Log("Tu puntaje final es de " + _score);
+            isFinish = true;
+        }
     }
 
     private void Grayscale()
@@ -50,10 +70,6 @@ public class GameManager : MonoBehaviour
         if(player.isStartJump && !player.isDead)
         {
             _timeLive += Time.deltaTime;
-        }
-        else if (player.isStartJump && player.isDead)
-        {
-            Debug.Log("Has aguantado " + Mathf.Round(_timeLive) + " Segundos");
         }
     }
 }

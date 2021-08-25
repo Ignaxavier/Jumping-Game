@@ -36,31 +36,47 @@ public class ForceDamage : MonoBehaviour
 
     void Update()
     {
-        Upper();
-        Downer();
+        if(rb.drag < 2)
+        {
+            Upper();
+            Downer();
+        }
+        else
+        {
+            downFire._anim.SetTrigger("Nothing");
+            upFire._anim.SetTrigger("Nothing");
+        }
     }
 
     private void Downer()
     {
-        if(rb.velocity.y < _downDamageVelocity)
+        if (upFire._anim.GetCurrentAnimatorStateInfo(0).IsName("Nothing"))
         {
-            downFire._anim.SetTrigger("Start");
-        }
-        else if (rb.velocity.y > _downDamageVelocity)
-        {
-            downFire._anim.SetTrigger("End");
+            if (rb.velocity.y < _downDamageVelocity)
+            {
+                downFire._anim.SetTrigger("Start");
+                upFire._anim.SetTrigger("Nothing");
+            }
+            else if (rb.velocity.y > _downDamageVelocity)
+            {
+                downFire._anim.SetTrigger("End");
+            }
         }
     }
 
     private void Upper()
     {
-        if (rb.velocity.y > _upDamageVelocity)
+        if (downFire._anim.GetCurrentAnimatorStateInfo(0).IsName("Nothing"))
         {
-            upFire._anim.SetTrigger("Start");
-        }
-        else if (rb.velocity.y < _upDamageVelocity)
-        {
-            upFire._anim.SetTrigger("End");
+            if (rb.velocity.y > _upDamageVelocity)
+            {
+                upFire._anim.SetTrigger("Start");
+                downFire._anim.SetTrigger("Nothing");
+            }
+            else if (rb.velocity.y < _upDamageVelocity)
+            {
+                upFire._anim.SetTrigger("End");
+            }
         }
     }
 }

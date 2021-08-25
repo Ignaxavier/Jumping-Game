@@ -5,9 +5,9 @@ using UnityEngine;
 public class Fire : MonoBehaviour
 {
     [SerializeField]
-    private         BoxCollider2D       _collider;
+    private         BoxCollider2D       _collider       =       null;
 
-    public          Animator            _anim;
+    public          Animator            _anim           =       null;
 
     public void ColliderEnabled()
     {

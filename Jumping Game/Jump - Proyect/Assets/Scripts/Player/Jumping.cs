@@ -11,8 +11,11 @@ public class Jumping : MonoBehaviour
 
     [SerializeField]
     [Tooltip("La cama elástica wachin")]
-    private         Transform       _spring;
+    private         Transform       _spring             =       null;
 
+    private         float           actualHeight        =       0;
+
+    #region Jump
     [Header("Jump")]
     [SerializeField]
     private         string          _jumpInput          =       "jump";
@@ -41,29 +44,38 @@ public class Jumping : MonoBehaviour
 
     [HideInInspector]
     public          bool            isFalling;
+    #endregion
 
+    #region SlowFall
     [Header("SlowFall")]
 
     [SerializeField]
     [Range(0, 5f)]
     [Tooltip("Distancia donde empieza a frenar el personaje")]
-    private         float           _distanceOfSlowFall =      1.7f;
+    private         float           _distanceOfSlowFall             =      1.7f;
 
     [SerializeField]
     [Tooltip("Altura minima donde el freno se habilita")]
-    private         float           _distanceOfSlowWorks =     12f;
+    private         float           _distanceOfSlowWorks            =     12f;
 
-    private bool slowFallAvalible = false;
+    private         bool            slowFallAvalible                =     false;
 
     [SerializeField]
     [Range(0, 0.5f)]
     [Tooltip("Distancia de frenado que se suma al rebotar en la cama elástica")]
-    private         float           _slowFall            =     0f;
+    private         float           _slowFallDistancePlus           =       0f;
 
     [SerializeField]
     [Tooltip("Valor del angular drag del rigibody")]
-    private         float           _slowVelocityPenalized =   12f;
+    private         float           _slowVelocityPenalized          =       12f;
 
+    [SerializeField]
+    [Range(0, 0.5f)]
+    [Tooltip("Valor de Angular Drag que se suma al rebotar")]
+    private         float           _slowVelocityPenalizedPlus      =       0.35f;
+    #endregion
+
+    #region Boleans
     [HideInInspector]
     public          bool            isDead              =      false;
 
@@ -71,6 +83,7 @@ public class Jumping : MonoBehaviour
     public          bool            isStartJump         =      false;
 
     private         bool            isTouchingSpring;
+    #endregion
 
     private void Awake()
     {
@@ -113,7 +126,7 @@ public class Jumping : MonoBehaviour
 
                 rb.velocity += Vector2.up * Physics2D.gravity.y * (_fallMultiplier - 1) * Time.deltaTime;
 
-                if(Vector2.Distance(transform.position, _spring.position) < _distanceOfSlowFall && slowFallAvalible)
+                if(Vector2.Distance(new Vector2(0, transform.position.y), new Vector2(0, _spring.position.y)) < _distanceOfSlowFall && slowFallAvalible)
                 {
                     rb.drag = _slowVelocityPenalized;
 
@@ -126,6 +139,7 @@ public class Jumping : MonoBehaviour
                 if (alreadyJump && slowFallAvalible)
                 {
                     rb.velocity = new Vector2(rb.velocity.x, 0);
+                    MaxHeight(Mathf.Round(transform.position.y));
                     gm.isSlow = true;
                     _fallCoutdown -= Time.deltaTime;
                 }
@@ -138,7 +152,7 @@ public class Jumping : MonoBehaviour
         if(Vector2.Distance(transform.position, _spring.position) < 1.5f && Input.GetButtonDown(_jumpInput) && alreadyJump)
         {
             velocityMultiplier++;
-            _distanceOfSlowFall += _slowFall;
+            _distanceOfSlowFall += _slowFallDistancePlus;
         }
     }
 
@@ -150,6 +164,16 @@ public class Jumping : MonoBehaviour
             {
                 slowFallAvalible = true;
             }
+        }
+    }
+
+    private void MaxHeight(float value)
+    {
+        if(value > actualHeight)
+        {
+            actualHeight = value;
+
+            gm._maxHeight = actualHeight;
         }
     }
 
@@ -167,9 +191,14 @@ public class Jumping : MonoBehaviour
             if (alreadyJump)
             {
                 velocityMultiplier++;
-                _distanceOfSlowFall += _slowFall;
                 _fallCoutdown = fallCoutdownRegister;
                 rb.velocity += Vector2.up * _jumpVelocity * velocityMultiplier * Time.deltaTime;
+
+                if (slowFallAvalible)
+                {
+                    _distanceOfSlowFall += _slowFallDistancePlus;
+                    _slowVelocityPenalized += _slowVelocityPenalizedPlus;
+                }
             }
         }
 

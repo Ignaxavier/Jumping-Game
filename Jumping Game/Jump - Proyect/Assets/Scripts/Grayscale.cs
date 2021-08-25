@@ -19,13 +19,13 @@ public class Grayscale : MonoBehaviour
     public void StartGrayscaleRoutine()
     {
         //StartCoroutine(GrayscaleRoutine(_duration, true));
-        sr.material.SetFloat("_GrayscaleAmount", 1);
+        SetGrayscale(1);
     }
 
     public void ResetGrayscaleRoutine()
     {
         //StartCoroutine(GrayscaleRoutine(_duration, false));
-        sr.material.SetFloat("_GrayscaleAmount", 0);
+        SetGrayscale(0);
     }
 
 
