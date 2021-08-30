@@ -9,6 +9,8 @@ public class Jumping : MonoBehaviour
 
     private         GameManager     gm;
 
+    private         Movement        move;
+
     [SerializeField]
     [Tooltip("La cama elástica wachin")]
     private         Transform       _spring             =       null;
@@ -44,6 +46,10 @@ public class Jumping : MonoBehaviour
 
     [HideInInspector]
     public          bool            isFalling;
+
+    [SerializeField]
+    [Tooltip("Altura Maxima del nivel")]
+    private         float           _maxHeight          =      0f;
     #endregion
 
     #region SlowFall
@@ -93,7 +99,9 @@ public class Jumping : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        gm = FindObjectOfType<GameManager>();
+        gm = GameManager.Instance;
+
+        move = GetComponent<Movement>();
 
         fallCoutdownRegister = _fallCoutdown;
     }
@@ -104,6 +112,11 @@ public class Jumping : MonoBehaviour
         Fall();
         PlusJump();
         ExtraBooleans();
+
+        if (isDead && Input.GetButtonDown(_jumpInput))
+        {
+            gm.BackAgain();
+        }
     }
 
     private void Jump()
@@ -134,7 +147,14 @@ public class Jumping : MonoBehaviour
 
                 if(Vector2.Distance(new Vector2(0, transform.position.y), new Vector2(0, _spring.position.y)) < _distanceOfSlowFall && slowFallAvalible)
                 {
-                    rb.drag = _slowVelocityPenalized;
+                    if (!move._isMove)
+                    {
+                        rb.drag = _slowVelocityPenalized;
+                    }
+                    else
+                    {
+                        rb.drag = _slowVelocityPenalized - move._penalizedSlow;
+                    }
 
                     gm.isSlow = true;
                 }
@@ -204,6 +224,7 @@ public class Jumping : MonoBehaviour
                 {
                     _distanceOfSlowFall += _slowFallDistancePlus;
                     _slowVelocityPenalized += _slowVelocityPenalizedPlus;
+                    move._penalizedSlow += _slowVelocityPenalizedPlus * 1.355f;
                 }
             }
         }
@@ -220,6 +241,15 @@ public class Jumping : MonoBehaviour
         if(collision.gameObject.layer == 9)
         {
             isTouchingSpring = false;
+        }
+    }
+
+    private void OnBecameInvisible()
+    {
+        if(transform.position.y >= _maxHeight)
+        {
+            gm.outLimits = true;
+            Destroy(this.gameObject);
         }
     }
 }

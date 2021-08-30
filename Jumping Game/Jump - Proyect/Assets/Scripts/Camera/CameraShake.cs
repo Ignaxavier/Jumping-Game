@@ -33,8 +33,11 @@ public class CameraShake : MonoBehaviour
 
     private void Update()
     {
-        actualPosition = new Vector3(move.originPosition.x, move._player.transform.position.y + move._playerHeightOffset, move.originPosition.z);
-        CameraShakeRoutine(_shake);
+        if(move._player != null)
+        {
+            actualPosition = new Vector3(move.originPosition.x, move._player.transform.position.y + move._playerHeightOffset, move.originPosition.z);
+            CameraShakeRoutine(_shake);
+        }
     }
 
     private void CameraShakeRoutine(bool isShake)

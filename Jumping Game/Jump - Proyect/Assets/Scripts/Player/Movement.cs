@@ -30,6 +30,11 @@ public class Movement : MonoBehaviour
     [SerializeField]
     [Range(0, 10)]
     private         float           _positiveLimitX     =       5f;
+
+    public         float            _penalizedSlow      =       0f;
+
+    [HideInInspector]
+    public         bool             _isMove             =       false;
     
     private void Awake()
     {
@@ -44,6 +49,12 @@ public class Movement : MonoBehaviour
         if(Input.GetAxis(_movementInput) != 0 && !jump.isDead && canMove)
         {
             rb.velocity = (Vector2.right * Input.GetAxis(_movementInput) * _movementSpeed * 3 * Time.deltaTime) + Vector2.up * rb.velocity.y;
+
+            _isMove = true;
+        }
+        else
+        {
+            _isMove = false;
         }
     }
 

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public      static      GameManager     Instance;
+
     #region Player Things
     private         GameObject      player          =       null;
 
@@ -17,8 +20,6 @@ public class GameManager : MonoBehaviour
     public          float           _maxHeight      =       0f;
 
     public          float           _timeLive       =       0f;
-
-    public          float           _score          =       0f;
     #endregion
 
     #region Score Texts
@@ -33,19 +34,61 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [SerializeField]
+    private          GameObject      _limitsPanel    =       null;
+
+    [SerializeField]
+    private          GameObject      _GameOverPanel  =       null;
+
+    [SerializeField]
+    private          GameObject      _rebornPanel    =       null;
+
+    [SerializeField]
+    private          Text            _scoreText      =       null;
+
+    [SerializeField]
     [Tooltip("Valor que se multiplica al puntaje")]
-    private         float           scoreMultiplyer =       1.5f;
+    private         float           scoreMultiplyer  =       1.5f;
 
     [SerializeField]
     private         Grayscale[]     grayscaleObjects;
 
-    [HideInInspector]
-    public          bool            isSlow          =       false;
+    [SerializeField]
+    private         Animator        blackFade        =       null;
 
-    private         bool            isFinish        =       false;
+    [HideInInspector]
+    public          bool            isSlow           =       false;
+
+    private         bool            isFinish         =       false;
+
+    [HideInInspector]
+    public          bool            outLimits        =       false;
+
+    [SerializeField]
+    private         float           _finishLimitsTimer      =       2.5f;
 
     private void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
+        if(ScoreRegister.Instance != null && ScoreRegister.Instance._generalScore != 0)
+        {
+            _rebornPanel.SetActive(true);
+        }
+        else
+        {
+            _rebornPanel.SetActive(false);
+        }
+
+        _limitsPanel.SetActive(false);
+        _GameOverPanel.SetActive(false);
+
         grayscaleObjects = FindObjectsOfType<Grayscale>();
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -59,14 +102,23 @@ public class GameManager : MonoBehaviour
         Grayscale();
         LiveTime();
         UITexts();
+        GameOver();
 
-        if (pJump.isDead & !isFinish)
+        if (outLimits)
         {
-            _score = Mathf.Round(((_timeLive + _maxHeight) * pCoins._coins) * scoreMultiplyer);
-            
-            Debug.Log("Has sobrevivido " + Mathf.Round(_timeLive) + " segundos y has alcanzado los " + _maxHeight + " metros.");
-            Debug.Log("Tu puntaje final es de " + _score);
-            isFinish = true;
+            _limitsPanel.SetActive(true);
+
+            if(_finishLimitsTimer <= 0)
+            {
+                ScoreRegister.Instance._levelMultiplyer++;
+                ScoreRegister.Instance._generalScore += Mathf.Round(((_timeLive + _maxHeight) * pCoins._coins) * scoreMultiplyer * ScoreRegister.Instance._levelMultiplyer);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else
+            {
+                blackFade.SetTrigger("Fade");
+                _finishLimitsTimer -= Time.deltaTime;
+            }
         }
     }
 
@@ -101,5 +153,23 @@ public class GameManager : MonoBehaviour
         _secondsText.text = Mathf.Round(_timeLive).ToString() + "s";
         _heightText.text = _maxHeight.ToString() + "mts";
         _coinText.text = "Coins: " + pCoins.coinsAmount.ToString();
+    }
+
+    private void GameOver()
+    {
+        if (pJump.isDead & !isFinish)
+        {
+            ScoreRegister.Instance._generalScore += Mathf.Round(((_timeLive + _maxHeight) * pCoins._coins) * scoreMultiplyer * ScoreRegister.Instance._levelMultiplyer);
+            _GameOverPanel.SetActive(true);
+            _scoreText.text = "Score: " + ScoreRegister.Instance._generalScore.ToString();
+            isFinish = true;
+        }
+    }
+
+    public void BackAgain()
+    {
+        blackFade.SetTrigger("Fade");
+        ScoreRegister.Instance._generalScore = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
