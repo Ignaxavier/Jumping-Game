@@ -19,29 +19,20 @@ public class Movement : MonoBehaviour
 
     private         bool            canMove             =       false;
 
-    [Header("Limit")]
-
-    private         Transform       space;
+    [SerializeField]
+    private         TrailRenderer   _trail              =       null;
 
     [SerializeField]
-    [Range(-10, 0)]
-    private         float           _negativeLimitX     =       -5f;
+    private         float           _timeToTrailEnable  =       2f;
 
-    [SerializeField]
-    [Range(0, 10)]
-    private         float           _positiveLimitX     =       5f;
+    private         float           timerTrial          =       0f;
 
-    public         float            _penalizedSlow      =       0f;
-
-    [HideInInspector]
-    public         bool             _isMove             =       false;
+    private         bool            isVisible           =       true;
     
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         jump = GetComponent<Jumping>();
-
-        space = transform;
     }
 
     void Update()
@@ -49,18 +40,22 @@ public class Movement : MonoBehaviour
         if(Input.GetAxis(_movementInput) != 0 && !jump.isDead && canMove)
         {
             rb.velocity = (Vector2.right * Input.GetAxis(_movementInput) * _movementSpeed * 3 * Time.deltaTime) + Vector2.up * rb.velocity.y;
-
-            _isMove = true;
-        }
-        else
-        {
-            _isMove = false;
         }
     }
 
     private void LateUpdate()
     {
-        space.position = new Vector2(Mathf.Clamp(transform.position.x, _negativeLimitX, _positiveLimitX), transform.position.y);
+        if (isVisible)
+        {
+            if (timerTrial >= _timeToTrailEnable)
+            {
+                _trail.enabled = true;
+            }
+            else
+            {
+                timerTrial += Time.deltaTime;
+            }
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -69,5 +64,26 @@ public class Movement : MonoBehaviour
         {
             canMove = true;
         }
+    }
+
+    private void OnBecameInvisible()
+    {
+        _trail.enabled = false;
+        timerTrial = 0;
+        isVisible = false;
+
+        if(transform.position.x > 0)
+        {
+            transform.position = new Vector3(-transform.position.x, transform.position.y);
+        }
+        else if(transform.position.x < 0)
+        {
+            transform.position = new Vector3(-transform.position.x, transform.position.y);
+        }
+    }
+
+    private void OnBecameVisible()
+    {
+        isVisible = true;
     }
 }

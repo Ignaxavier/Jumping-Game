@@ -12,6 +12,7 @@ ScriptsOnlyBuild:
     - Grayscale
     - Jumping
     - Movement
+    - Obstacle
     - ScoreRegister
     - SpringPosition
     Unity.2D.Tilemap.Editor.dll:
@@ -23,10 +24,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -49,6 +48,8 @@ ScriptsOnlyBuild:
     - Class: 21
       Script: {instanceID: 0}
     - Class: 28
+      Script: {instanceID: 0}
+    - Class: 43
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
@@ -108,11 +109,17 @@ ScriptsOnlyBuild:
       Script: {instanceID: 11432}
     - Class: 114
       Script: {instanceID: 11540}
+    - Class: 114
+      Script: {instanceID: 11598}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
       Script: {instanceID: 0}
     - Class: 157
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
       Script: {instanceID: 0}
     - Class: 212
       Script: {instanceID: 0}
@@ -325,7 +332,7 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: 67bf62aca6f61109ecd83366fa14934e
+      Hash: c25f3c13d7bdff7c7db01b80901a83c0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SpringPosition
@@ -463,7 +470,7 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: 7ee9e5268c1f2a3ff8580c6688723890
+      Hash: e473e1b81688aa3568f896e17f8dbb81
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Movement
@@ -523,7 +530,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: 519b6f379b5e8129df89459de88ef433
+      Hash: 98d7038f594d78dfff1d9df8c7bfd15f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Jumping
@@ -613,6 +620,12 @@ ScriptsOnlyBuild:
     className: ToggleGroup
   - hash:
       serializedVersion: 2
+      Hash: 76c289f7bee72a70425e4791a660544a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Obstacle
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -620,4 +633,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/Usuario/Desktop/Jump Game/Jump.exe
+  playerPath: C:/Users/Usuario/Desktop/Jump Game V 0.2/Jump.exe

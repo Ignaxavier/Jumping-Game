@@ -76,6 +76,11 @@ public class Jumping : MonoBehaviour
     private         float           _slowFallDistancePlus           =       0f;
 
     [SerializeField]
+    [Range(0, 25f)]
+    [Tooltip("Limite de Drag")]
+    private         float           _slowVelocityPenalizedLimit     =       0f;
+
+    [SerializeField]
     [Tooltip("Valor del angular drag del rigibody")]
     private         float           _slowVelocityPenalized          =       12f;
 
@@ -95,6 +100,14 @@ public class Jumping : MonoBehaviour
     private         bool            isTouchingSpring;
     #endregion
 
+    [Header("Rigibody Clamp")]
+
+    [SerializeField]
+    private         float       _yPositiveVelocity      =       350f;
+
+    [SerializeField]
+    private         float       _yNegativeVelocity      =       -100f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -108,6 +121,7 @@ public class Jumping : MonoBehaviour
 
     void Update()
     {
+        MaxHeight(Mathf.Round(transform.position.y));
         Jump();
         Fall();
         PlusJump();
@@ -116,6 +130,18 @@ public class Jumping : MonoBehaviour
         if (isDead && Input.GetButtonDown(_jumpInput))
         {
             gm.BackAgain();
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if(rb.velocity.y < _yNegativeVelocity)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, _yNegativeVelocity);
+        }
+        else if(rb.velocity.y > _yPositiveVelocity)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, _yPositiveVelocity);
         }
     }
 
@@ -132,6 +158,7 @@ public class Jumping : MonoBehaviour
     private void Fall()
     {
         _distanceOfSlowFall = Mathf.Clamp(_distanceOfSlowFall , 0, _limitOfSlowFall);
+        _slowVelocityPenalized = Mathf.Clamp(_slowVelocityPenalized, 0, _slowVelocityPenalizedLimit);
 
         if (rb.velocity.y < 0)
         {
@@ -147,15 +174,7 @@ public class Jumping : MonoBehaviour
 
                 if(Vector2.Distance(new Vector2(0, transform.position.y), new Vector2(0, _spring.position.y)) < _distanceOfSlowFall && slowFallAvalible)
                 {
-                    if (!move._isMove)
-                    {
-                        rb.drag = _slowVelocityPenalized;
-                    }
-                    else
-                    {
-                        rb.drag = _slowVelocityPenalized - move._penalizedSlow;
-                    }
-
+                    rb.drag = _slowVelocityPenalized;
                     gm.isSlow = true;
                 }
 
@@ -165,7 +184,6 @@ public class Jumping : MonoBehaviour
                 if (alreadyJump && slowFallAvalible)
                 {
                     rb.velocity = new Vector2(rb.velocity.x, 0);
-                    MaxHeight(Mathf.Round(transform.position.y));
                     gm.isSlow = true;
                     _fallCoutdown -= Time.deltaTime;
                 }
@@ -224,7 +242,6 @@ public class Jumping : MonoBehaviour
                 {
                     _distanceOfSlowFall += _slowFallDistancePlus;
                     _slowVelocityPenalized += _slowVelocityPenalizedPlus;
-                    move._penalizedSlow += _slowVelocityPenalizedPlus * 1.355f;
                 }
             }
         }
