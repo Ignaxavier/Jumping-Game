@@ -9,7 +9,7 @@ public class Jumping : MonoBehaviour
 
     private         GameManager     gm;
 
-    private         Movement        move;
+    private         Sounds          sound;
 
     [SerializeField]
     [Tooltip("La cama elástica wachin")]
@@ -114,7 +114,7 @@ public class Jumping : MonoBehaviour
 
         gm = GameManager.Instance;
 
-        move = GetComponent<Movement>();
+        sound = GetComponent<Sounds>();
 
         fallCoutdownRegister = _fallCoutdown;
     }
@@ -127,9 +127,14 @@ public class Jumping : MonoBehaviour
         PlusJump();
         ExtraBooleans();
 
-        if (isDead && Input.GetButtonDown(_jumpInput))
+        if (isDead)
         {
-            gm.BackAgain();
+            sound.DeadSound();
+
+            if (Input.GetButtonDown(_jumpInput))
+            {
+                gm.BackAgain();
+            }
         }
     }
 
@@ -152,6 +157,7 @@ public class Jumping : MonoBehaviour
             rb.velocity = (Vector2.up * _jumpVelocity * velocityMultiplier * Time.deltaTime) + Vector2.right * rb.velocity.x;
             alreadyJump = true;
             isStartJump = true;
+            sound.JumpSound();
         }
     }
 
@@ -234,6 +240,7 @@ public class Jumping : MonoBehaviour
 
             if (alreadyJump)
             {
+                sound.JumpSound();
                 velocityMultiplier++;
                 _fallCoutdown = fallCoutdownRegister;
                 rb.velocity += Vector2.up * _jumpVelocity * velocityMultiplier * Time.deltaTime;
@@ -267,6 +274,11 @@ public class Jumping : MonoBehaviour
         {
             gm.outLimits = true;
             Destroy(this.gameObject);
+        }
+
+        if(transform.position.y < _spring.position.y && transform != null)
+        {
+            isDead = true;
         }
     }
 }

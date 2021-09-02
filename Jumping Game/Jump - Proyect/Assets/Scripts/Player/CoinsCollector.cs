@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CoinsCollector : MonoBehaviour
 {
+    private         Sounds      sound;
+
     public          float       _coins      =       0;
 
     [HideInInspector]
@@ -12,6 +14,11 @@ public class CoinsCollector : MonoBehaviour
     [SerializeField]
     private         float       _coinsValue =       0f;
 
+    private void Awake()
+    {
+        sound = GetComponent<Sounds>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.layer == 10)
@@ -19,6 +26,8 @@ public class CoinsCollector : MonoBehaviour
             _coins += _coinsValue;
 
             coinsAmount++;
+
+            sound.CoinSound();
 
             Destroy(collision.gameObject);
         }

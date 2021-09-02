@@ -9,15 +9,24 @@ public class Fire : MonoBehaviour
 
     public          Animator            _anim           =       null;
 
-    public void ColliderEnabled()
+    public          AudioSource         _au             =       null;
+
+    private void Awake()
     {
-        if (!_collider.enabled)
-        {
-            _collider.enabled = true;
-        }
-        else if (_collider.enabled)
-        {
-            _collider.enabled = false;
-        }
+        Disabled();
+    }
+
+    public void Enabled()
+    {
+        _collider.enabled = true;
+        _au.enabled = true;
+        _anim.SetTrigger("Start");
+    }
+
+    public void Disabled()
+    {
+        _collider.enabled = false;
+        _au.enabled = false;
+        _anim.SetTrigger("End");
     }
 }

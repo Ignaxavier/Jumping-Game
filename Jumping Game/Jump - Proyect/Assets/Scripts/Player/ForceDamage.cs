@@ -9,12 +9,9 @@ public class ForceDamage : MonoBehaviour
 
     [Header("Objects")]
     [SerializeField]
-    private         GameObject          _upDamageObject         =       null;
+    private         Fire          _upDamageObject         =       null;
     [SerializeField]
-    private         GameObject          _downDamageObject       =       null;
-
-    private         Fire                upFire                  =       null;
-    private         Fire                downFire                =       null;
+    private         Fire          _downDamageObject       =       null;
 
     [Header("Velocitys")]
     [SerializeField]
@@ -34,9 +31,6 @@ public class ForceDamage : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        upFire = _upDamageObject.GetComponent<Fire>();
-        downFire = _downDamageObject.GetComponent<Fire>();
     }
 
     void Update()
@@ -48,43 +42,43 @@ public class ForceDamage : MonoBehaviour
         }
         else
         {
-            downFire._anim.SetTrigger("Nothing");
-            upFire._anim.SetTrigger("Nothing");
+            _downDamageObject._anim.SetTrigger("Nothing");
+            _upDamageObject._anim.SetTrigger("Nothing");
         }
     }
 
     private void Downer()
     {
-        if (upFire._anim.GetCurrentAnimatorStateInfo(0).IsName("Nothing"))
+        if (_upDamageObject._anim.GetCurrentAnimatorStateInfo(0).IsName("Nothing"))
         {
             if (rb.velocity.y < _downDamageVelocity)
             {
-                downFire._anim.SetTrigger("Start");
+                _downDamageObject.Disabled();
                 _camShake._shake = true;
-                upFire._anim.SetTrigger("Nothing");
+                _upDamageObject.Enabled();
             }
             else if (rb.velocity.y > _downDamageVelocity)
             {
-                downFire._anim.SetTrigger("End");
                 _camShake._shake = false;
+                _downDamageObject.Disabled();
             }
         }
     }
 
     private void Upper()
     {
-        if (downFire._anim.GetCurrentAnimatorStateInfo(0).IsName("Nothing"))
+        if (_downDamageObject._anim.GetCurrentAnimatorStateInfo(0).IsName("Nothing"))
         {
             if (rb.velocity.y > _upDamageVelocity)
             {
-                upFire._anim.SetTrigger("Start");
                 _camShake._shake = true;
-                downFire._anim.SetTrigger("Nothing");
+                _upDamageObject.Enabled();
+                _downDamageObject.Disabled();
             }
             else if (rb.velocity.y < _upDamageVelocity)
             {
                 _camShake._shake = false;
-                upFire._anim.SetTrigger("End");
+                _upDamageObject.Disabled();
             }
         }
     }
