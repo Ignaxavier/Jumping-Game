@@ -31,55 +31,44 @@ public class ForceDamage : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        _upDamageObject.Nothing();
+        _downDamageObject.Nothing();
     }
 
     void Update()
     {
-        if(rb.drag < 2)
-        {
-            Upper();
-            Downer();
-        }
-        else
-        {
-            _downDamageObject._anim.SetTrigger("Nothing");
-            _upDamageObject._anim.SetTrigger("Nothing");
-        }
+        Upper();
+        Downer();
     }
 
     private void Downer()
     {
-        if (_upDamageObject._anim.GetCurrentAnimatorStateInfo(0).IsName("Nothing"))
+        if (rb.velocity.y < _downDamageVelocity)
         {
-            if (rb.velocity.y < _downDamageVelocity)
-            {
-                _downDamageObject.Disabled();
-                _camShake._shake = true;
-                _upDamageObject.Enabled();
-            }
-            else if (rb.velocity.y > _downDamageVelocity)
-            {
-                _camShake._shake = false;
-                _downDamageObject.Disabled();
-            }
+            _downDamageObject.Enabled();
+            _camShake._shake = true;
+            _upDamageObject.Nothing();
+        }
+        else if (rb.velocity.y > _downDamageVelocity)
+        {
+            _camShake._shake = false;
+            _downDamageObject.Disabled();
         }
     }
 
     private void Upper()
     {
-        if (_downDamageObject._anim.GetCurrentAnimatorStateInfo(0).IsName("Nothing"))
+        if (rb.velocity.y > _upDamageVelocity)
         {
-            if (rb.velocity.y > _upDamageVelocity)
-            {
-                _camShake._shake = true;
-                _upDamageObject.Enabled();
-                _downDamageObject.Disabled();
-            }
-            else if (rb.velocity.y < _upDamageVelocity)
-            {
-                _camShake._shake = false;
-                _upDamageObject.Disabled();
-            }
+            _upDamageObject.Enabled();
+            _camShake._shake = true;
+            _downDamageObject.Nothing();
+        }
+        else if (rb.velocity.y < _upDamageVelocity)
+        {
+            _camShake._shake = false;
+            _upDamageObject.Disabled();
         }
     }
 }

@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
     public          float           _maxHeight      =       0f;
 
     public          float           _timeLive       =       0f;
+
+    [SerializeField]
+    [Tooltip("Valor que se multiplica al puntaje")]
+    private         float           scoreMultiplyer  =       1.5f;
     #endregion
 
     #region Score Texts
@@ -33,6 +37,7 @@ public class GameManager : MonoBehaviour
     private         Text            _coinText       =       null;
     #endregion
 
+    #region UI
     [SerializeField]
     private          GameObject      _limitsPanel    =       null;
 
@@ -46,14 +51,11 @@ public class GameManager : MonoBehaviour
     private          Text            _scoreText      =       null;
 
     [SerializeField]
-    [Tooltip("Valor que se multiplica al puntaje")]
-    private         float           scoreMultiplyer  =       1.5f;
+    private         Animator        blackFade        =       null;
+    #endregion
 
     [SerializeField]
     private         Grayscale[]     grayscaleObjects;
-
-    [SerializeField]
-    private         Animator        blackFade        =       null;
 
     [HideInInspector]
     public          bool            isSlow           =       false;
@@ -128,14 +130,14 @@ public class GameManager : MonoBehaviour
         {
             for(int i = 0; i < grayscaleObjects.Length; i++)
             {
-                grayscaleObjects[i].StartGrayscaleRoutine();
+                grayscaleObjects[i].GrayScaleEnabled();
             }
         }
         else if (!isSlow)
         {
             for(int i = 0; i < grayscaleObjects.Length; i++)
             {
-                grayscaleObjects[i].ResetGrayscaleRoutine();
+                grayscaleObjects[i].GrayScaleDisabled();
             }
         }
     }
@@ -159,7 +161,7 @@ public class GameManager : MonoBehaviour
     {
         if (pJump.isDead & !isFinish)
         {
-            ScoreRegister.Instance._generalScore += Mathf.Round(((_timeLive + _maxHeight) * pCoins._coins) * scoreMultiplyer * ScoreRegister.Instance._levelMultiplyer);
+            ScoreRegister.Instance._generalScore += Mathf.Round((_timeLive + _maxHeight) * (pCoins._coins + scoreMultiplyer + ScoreRegister.Instance._levelMultiplyer));
             _GameOverPanel.SetActive(true);
             _scoreText.text = "Score: " + ScoreRegister.Instance._generalScore.ToString();
             isFinish = true;

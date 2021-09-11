@@ -12,6 +12,9 @@ public class Jumping : MonoBehaviour
     private         Sounds          sound;
 
     [SerializeField]
+    private         Arrow           _arrow;
+
+    [SerializeField]
     [Tooltip("La cama elástica wachin")]
     private         Transform       _spring             =       null;
 
@@ -190,6 +193,7 @@ public class Jumping : MonoBehaviour
                 if (alreadyJump && slowFallAvalible)
                 {
                     rb.velocity = new Vector2(rb.velocity.x, 0);
+                    _arrow.see = true;
                     gm.isSlow = true;
                     _fallCoutdown -= Time.deltaTime;
                 }
@@ -276,9 +280,12 @@ public class Jumping : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        if(transform.position.y < _spring.position.y && transform != null)
+        if(transform != null)
         {
-            isDead = true;
+            if(transform.position.y < _spring.position.y)
+            {
+                isDead = true;
+            }
         }
     }
 }

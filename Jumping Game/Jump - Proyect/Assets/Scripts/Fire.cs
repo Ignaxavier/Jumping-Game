@@ -5,28 +5,25 @@ using UnityEngine;
 public class Fire : MonoBehaviour
 {
     [SerializeField]
-    private         BoxCollider2D       _collider       =       null;
-
-    public          Animator            _anim           =       null;
-
-    public          AudioSource         _au             =       null;
+    private          Animator            _anim           =       null;
 
     private void Awake()
     {
-        Disabled();
+        Nothing();    
     }
 
     public void Enabled()
     {
-        _collider.enabled = true;
-        _au.enabled = true;
-        _anim.SetTrigger("Start");
+        _anim.SetBool("Active", true);
     }
 
     public void Disabled()
     {
-        _collider.enabled = false;
-        _au.enabled = false;
-        _anim.SetTrigger("End");
+        _anim.SetBool("Active", false);
+    }
+
+    public void Nothing()
+    {
+        _anim.SetTrigger("Nothing");
     }
 }

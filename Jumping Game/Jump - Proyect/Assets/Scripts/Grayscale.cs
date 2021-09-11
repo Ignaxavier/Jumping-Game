@@ -6,50 +6,18 @@ public class Grayscale : MonoBehaviour
 {
     private         SpriteRenderer          sr;
 
-    [SerializeField]
-    private         float                   _duration       =       1f;
-
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-
-        SetGrayscale(1);
     }
 
-    public void StartGrayscaleRoutine()
+    public void GrayScaleEnabled()
     {
-        //StartCoroutine(GrayscaleRoutine(_duration, true));
-        SetGrayscale(1);
+        sr.material.SetFloat("_GrayscaleAmount", 1);
     }
 
-    public void ResetGrayscaleRoutine()
+    public void GrayScaleDisabled()
     {
-        //StartCoroutine(GrayscaleRoutine(_duration, false));
-        SetGrayscale(0);
-    }
-
-
-    private IEnumerator GrayscaleRoutine(float duration, bool isGrayscale)
-    {
-        float time = 0;
-
-        while(duration > time)
-        {
-            float durantionFrame = Time.deltaTime;
-            float ratio = time / duration;
-            float grayAmount = isGrayscale
-                ? ratio
-                : 1 - ratio;
-
-            SetGrayscale(grayAmount);
-            time += durantionFrame;
-            yield return null;
-        }
-        SetGrayscale(isGrayscale ? 1 : 0);
-    }
-
-    public void SetGrayscale(float amount = 1)
-    {
-        sr.material.SetFloat("_GrayscaleAmount", amount);
+        sr.material.SetFloat("_GrayscaleAmount", 0);
     }
 }
