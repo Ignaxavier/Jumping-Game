@@ -172,6 +172,6 @@ public class GameManager : MonoBehaviour
     {
         blackFade.SetTrigger("Fade");
         ScoreRegister.Instance._generalScore = 0;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(0);
     }
 }

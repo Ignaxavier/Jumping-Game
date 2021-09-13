@@ -5,6 +5,7 @@ ScriptsOnlyBuild:
     - Arrow
     - CameraMovement
     - CameraShake
+    - CanvasChange
     - CoinsCollector
     - Fire
     - Flip
@@ -12,6 +13,7 @@ ScriptsOnlyBuild:
     - GameManager
     - Grayscale
     - Jumping
+    - Menu
     - Movement
     - ObjectsGenerator
     - Obstacle
@@ -24,6 +26,12 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
+    Unity.TextMeshPro.dll:
+    - TMPro.TMP_FontAsset
+    - TMPro.TMP_Settings
+    - TMPro.TMP_SpriteAsset
+    - TMPro.TMP_StyleSheet
+    - TMPro.TextMeshProUGUI
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -31,17 +39,88 @@ ScriptsOnlyBuild:
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
     - UnityEditor.Graphs.AnimationStateMachine.StateNode
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
     - UnityEngine.UI.Text
   sceneClasses:
+    Assets/Scenes/Menu.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 49
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 109
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 9698}
+    - Class: 114
+      Script: {instanceID: 9904}
+    - Class: 114
+      Script: {instanceID: 10312}
+    - Class: 114
+      Script: {instanceID: 10336}
+    - Class: 114
+      Script: {instanceID: 10690}
+    - Class: 114
+      Script: {instanceID: 10914}
+    - Class: 114
+      Script: {instanceID: 10928}
+    - Class: 114
+      Script: {instanceID: 10946}
+    - Class: 114
+      Script: {instanceID: 11106}
+    - Class: 114
+      Script: {instanceID: 11110}
+    - Class: 114
+      Script: {instanceID: 11172}
+    - Class: 114
+      Script: {instanceID: 11344}
+    - Class: 114
+      Script: {instanceID: 11550}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
     Assets/Scenes/Nivel.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -96,35 +175,35 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10260}
     - Class: 114
-      Script: {instanceID: 10310}
+      Script: {instanceID: 10308}
     - Class: 114
       Script: {instanceID: 10312}
     - Class: 114
-      Script: {instanceID: 10326}
+      Script: {instanceID: 10314}
     - Class: 114
-      Script: {instanceID: 10396}
+      Script: {instanceID: 10328}
     - Class: 114
-      Script: {instanceID: 10526}
+      Script: {instanceID: 10398}
     - Class: 114
-      Script: {instanceID: 10732}
+      Script: {instanceID: 10528}
     - Class: 114
-      Script: {instanceID: 11026}
+      Script: {instanceID: 10734}
     - Class: 114
-      Script: {instanceID: 11166}
+      Script: {instanceID: 11030}
     - Class: 114
-      Script: {instanceID: 11202}
+      Script: {instanceID: 11172}
     - Class: 114
-      Script: {instanceID: 11248}
+      Script: {instanceID: 11208}
     - Class: 114
-      Script: {instanceID: 11320}
+      Script: {instanceID: 11254}
     - Class: 114
-      Script: {instanceID: 11436}
+      Script: {instanceID: 11326}
     - Class: 114
-      Script: {instanceID: 11544}
+      Script: {instanceID: 11442}
     - Class: 114
-      Script: {instanceID: 11602}
+      Script: {instanceID: 11550}
     - Class: 114
-      Script: {instanceID: 19896}
+      Script: {instanceID: 11608}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -340,6 +419,12 @@ ScriptsOnlyBuild:
     className: CameraShake
   - hash:
       serializedVersion: 2
+      Hash: 321674ffa19231b0a3e4cb054020321e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Arrow
+  - hash:
+      serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -496,6 +581,12 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
+      Hash: d836593e1aa5afb8b3cb8c7ce6a15ef7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CanvasChange
+  - hash:
+      serializedVersion: 2
       Hash: c1933cc0a2f4ff6eb13333347497beb3
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -506,6 +597,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Movement
+  - hash:
+      serializedVersion: 2
+      Hash: 84f9ca90c6566eb1ad95deba8b17bebe
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Menu
   - hash:
       serializedVersion: 2
       Hash: 3b760e6526e13f7504f59e210145899a
@@ -662,13 +759,8 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 321674ffa19231b0a3e4cb054020321e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Arrow
   platform: 19
   scenePathNames:
+  - Assets/Scenes/Menu.unity
   - Assets/Scenes/Nivel.unity
-  playerPath: "C:/Users/Usuario/Desktop/Jump Game Beta Builds/Versi\xF3n 0.4/Jump.exe"
+  playerPath: "C:/Users/Usuario/Desktop/Jump Game Beta Builds/Versi\xF3n 0.5/Jump.exe"
