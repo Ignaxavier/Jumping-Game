@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
     {
         if (pJump.isDead & !isFinish)
         {
-            ScoreRegister.Instance._generalScore += Mathf.Round((_timeLive + _maxHeight) * (pCoins._coins + scoreMultiplyer + ScoreRegister.Instance._levelMultiplyer));
+            ScoreRegister.Instance._generalScore += Mathf.Round(((_timeLive + _maxHeight) * (pCoins._coins + scoreMultiplyer + ScoreRegister.Instance._levelMultiplyer)) / 10);
             _GameOverPanel.SetActive(true);
             _scoreText.text = "Score: " + ScoreRegister.Instance._generalScore.ToString();
             isFinish = true;

@@ -21,4 +21,10 @@ public class Menu : MonoBehaviour
         _cameraAnim.SetBool("Up", true);
         _cameraAnim.SetBool("Initial", false);
     }
+
+    public void Back()
+    {
+        _cameraAnim.SetBool("Up", false);
+        _cameraAnim.SetBool("Initial", true);
+    }
 }

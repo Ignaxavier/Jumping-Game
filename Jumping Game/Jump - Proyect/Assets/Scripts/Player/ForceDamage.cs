@@ -27,6 +27,10 @@ public class ForceDamage : MonoBehaviour
     [SerializeField]
     private         CameraShake         _camShake               =       null;
 
+    [Header("Hit Head")]
+    [SerializeField]
+    private         GameObject          _hit                    =       null;
+
 
     private void Awake()
     {
@@ -40,6 +44,7 @@ public class ForceDamage : MonoBehaviour
     {
         Upper();
         Downer();
+        CameraShake();
     }
 
     private void Downer()
@@ -47,12 +52,12 @@ public class ForceDamage : MonoBehaviour
         if (rb.velocity.y < _downDamageVelocity)
         {
             _downDamageObject.Enabled();
-            _camShake._shake = true;
             _upDamageObject.Nothing();
+            _hit.SetActive(false);
         }
         else if (rb.velocity.y > _downDamageVelocity)
         {
-            _camShake._shake = false;
+            _hit.SetActive(true);
             _downDamageObject.Disabled();
         }
     }
@@ -62,13 +67,25 @@ public class ForceDamage : MonoBehaviour
         if (rb.velocity.y > _upDamageVelocity)
         {
             _upDamageObject.Enabled();
-            _camShake._shake = true;
             _downDamageObject.Nothing();
+            _hit.SetActive(false);
         }
         else if (rb.velocity.y < _upDamageVelocity)
         {
-            _camShake._shake = false;
+            _hit.SetActive(true);
             _upDamageObject.Disabled();
+        }
+    }
+
+    private void CameraShake()
+    {
+        if(rb.velocity.y < _downDamageVelocity || rb.velocity.y > _upDamageVelocity)
+        {
+            _camShake._shake = true;
+        }
+        else if(rb.velocity.y > _downDamageVelocity || rb.velocity.y < _upDamageVelocity)
+        {
+            _camShake._shake = false;
         }
     }
 }

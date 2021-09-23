@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8465132998930113829}
   - component: {fileID: 5980204356340857160}
   - component: {fileID: 6026538660289414183}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4839,11 +4839,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8079511794176644742}
   - component: {fileID: 1210218376744633309}
-  - component: {fileID: 8060124261827081556}
   - component: {fileID: 273393044438695753}
   - component: {fileID: 3763001667562738322}
   - component: {fileID: 979927528360885992}
-  m_Layer: 0
+  - component: {fileID: 3186954535989255138}
+  - component: {fileID: 4160365166709175626}
+  m_Layer: 13
   m_Name: Ufo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4915,32 +4916,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8060124261827081556
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7057268700994543791}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.10311937, y: 0.044193268}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.4, y: 4}
-    newSize: {x: 6.4, y: 4}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 5.368807, y: 3.204506}
-  m_EdgeRadius: 0
 --- !u!61 &273393044438695753
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5077,6 +5052,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _explosion: {fileID: 5980204356340857160}
-  _layerCollider:
-    serializedVersion: 2
-    m_Bits: 2048
+  _layerCollider: 11
+  _coin: {fileID: 7243181520837781828, guid: 3df3bd4f464baae4c9a1defa89360610, type: 3}
+  _coinAmount: 5
+  _coinSpawnOffset: 0.411
+--- !u!70 &3186954535989255138
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7057268700994543791}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.008708311, y: -0.59777004}
+  m_Size: {x: 5.4768806, y: 2.2716694}
+  m_Direction: 1
+--- !u!58 &4160365166709175626
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7057268700994543791}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.57512736}
+  serializedVersion: 2
+  m_Radius: 1.4417548

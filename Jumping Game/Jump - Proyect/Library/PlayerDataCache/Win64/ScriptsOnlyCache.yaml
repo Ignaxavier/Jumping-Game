@@ -12,6 +12,7 @@ ScriptsOnlyBuild:
     - ForceDamage
     - GameManager
     - Grayscale
+    - HitHead
     - Jumping
     - Menu
     - Movement
@@ -35,10 +36,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -142,6 +141,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 61
       Script: {instanceID: 0}
+    - Class: 70
+      Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
@@ -204,6 +205,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 11550}
     - Class: 114
       Script: {instanceID: 11608}
+    - Class: 114
+      Script: {instanceID: 11612}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -365,7 +368,7 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
-      Hash: ba64878178fd4abd1b49e91bfa1a5689
+      Hash: 067e28cc31ea00db1cd94914ef556ad4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ForceDamage
@@ -659,7 +662,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: f0d4665aed8a3313653bfa613c568cf4
+      Hash: d71b8d27913075fbada15ec5d2fd6d5a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Jumping
@@ -749,10 +752,16 @@ ScriptsOnlyBuild:
     className: ToggleGroup
   - hash:
       serializedVersion: 2
-      Hash: 798b86533e2cec46017634e8db81feaf
+      Hash: 4fa989d7d131a96f123c34086399fbcc
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Obstacle
+  - hash:
+      serializedVersion: 2
+      Hash: 878a659b87b70a6e29a48e4ac3d647b5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HitHead
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -763,4 +772,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/Nivel.unity
-  playerPath: "C:/Users/Usuario/Desktop/Jump Game Beta Builds/Versi\xF3n 0.5/Jump.exe"
+  playerPath: "C:/Users/Usuario/Desktop/Jump Game Beta Builds/Versi\xF3n 0.7/Jump.exe"

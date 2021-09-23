@@ -6,8 +6,6 @@ public class CameraShake : MonoBehaviour
 {
     private         CameraMovement      move         =       null;
 
-    private         Rigidbody2D         pRB         =       null;
-
     [SerializeField]
     [Range(0f, 1f)]
     private         float               _xOffset        =       0f;
@@ -28,7 +26,6 @@ public class CameraShake : MonoBehaviour
     private void Awake()
     {
         move = GetComponent<CameraMovement>();
-        pRB = move._player.GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -36,13 +33,13 @@ public class CameraShake : MonoBehaviour
         if(move._player != null)
         {
             actualPosition = new Vector3(move.originPosition.x, move._player.transform.position.y + move._playerHeightOffset, move.originPosition.z);
-            CameraShakeRoutine(_shake);
+            CameraShakeRoutine();
         }
     }
 
-    private void CameraShakeRoutine(bool isShake)
+    private void CameraShakeRoutine()
     {
-        if (isShake && pRB.drag < 1f)
+        if (_shake)
         {
             float x = Random.Range(-_xOffset, _xOffset) * _magnitude;
             float y = Random.Range(-_yOffset, _yOffset) * _magnitude;

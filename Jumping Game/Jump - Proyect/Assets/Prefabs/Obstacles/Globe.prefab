@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1739663363663034317}
   - component: {fileID: 1739663363663034316}
-  - component: {fileID: 1739663363663034319}
   - component: {fileID: 1739663363663034304}
   - component: {fileID: 1739663363663034305}
   - component: {fileID: 1739663363663034318}
-  m_Layer: 0
+  - component: {fileID: 6680487406066805108}
+  - component: {fileID: 7796672437678551632}
+  m_Layer: 13
   m_Name: Globe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,32 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1739663363663034319
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739663363663034315}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.00000023841858, y: 0.017038345}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.2, y: 9.2}
-    newSize: {x: 4.2, y: 9.2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.2772326, y: 9.199982}
-  m_EdgeRadius: 0
 --- !u!61 &1739663363663034304
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -248,9 +223,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _explosion: {fileID: 1739663364849717158}
-  _layerCollider:
-    serializedVersion: 2
-    m_Bits: 2048
+  _layerCollider: 11
+  _coin: {fileID: 7243181520837781828, guid: 3df3bd4f464baae4c9a1defa89360610, type: 3}
+  _coinAmount: 3
+  _coinSpawnOffset: 0.334
+--- !u!70 &6680487406066805108
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739663363663034315}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.078136325, y: 0}
+  m_Size: {x: 2.324735, y: 9.199999}
+  m_Direction: 0
+--- !u!58 &7796672437678551632
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739663363663034315}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 2.6322985}
+  serializedVersion: 2
+  m_Radius: 1.9677011
 --- !u!1 &1739663364849717157
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +270,7 @@ GameObject:
   - component: {fileID: 1739663364849717176}
   - component: {fileID: 1739663364849717158}
   - component: {fileID: 1739663364849717159}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

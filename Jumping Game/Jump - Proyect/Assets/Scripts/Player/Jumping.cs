@@ -12,7 +12,7 @@ public class Jumping : MonoBehaviour
     private         Sounds          sound;
 
     [SerializeField]
-    private         Arrow           _arrow;
+    private         Arrow           _arrow              =       null;
 
     [SerializeField]
     [Tooltip("La cama elástica wachin")]
@@ -32,7 +32,8 @@ public class Jumping : MonoBehaviour
     [Tooltip("Velocidad de salto")]
     private         float           _jumpVelocity       =       100f;  
 
-    private         int             velocityMultiplier  =       1;
+    [HideInInspector]
+    public          int             velocityMultiplier  =       1;
 
     [Header("Fall")]
 
@@ -277,15 +278,13 @@ public class Jumping : MonoBehaviour
         if(transform.position.y >= _maxHeight)
         {
             gm.outLimits = true;
-            Destroy(this.gameObject);
+            transform.position = new Vector3(0, _maxHeight, 0);
+            rb.isKinematic = true;
         }
 
-        if(transform != null)
+        if(_spring != null && transform.position.y < _spring.position.y)
         {
-            if(transform.position.y < _spring.position.y)
-            {
-                isDead = true;
-            }
+            isDead = true;
         }
     }
 }

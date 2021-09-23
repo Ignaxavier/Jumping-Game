@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 446755767211498922}
   - component: {fileID: 2953143454618997868}
-  - component: {fileID: 5217789281578420702}
   - component: {fileID: 1494694332185274588}
   - component: {fileID: 8009544398181164658}
   - component: {fileID: 9174165627760299958}
-  m_Layer: 0
+  - component: {fileID: 4269533203597108542}
+  m_Layer: 13
   m_Name: Bug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
   m_Sprite: {fileID: 2818158085852216276, guid: 0bda636cc5289ad4f9db3d5d6636cfd4,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -86,32 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5217789281578420702
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3668729541090728988}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.09709668, y: 0.11328125}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.8, y: 4}
-    newSize: {x: 5.8, y: 4}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.1817193, y: 3.0614014}
-  m_EdgeRadius: 0
 --- !u!61 &1494694332185274588
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -122,7 +96,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.028509855, y: 0.17105865}
@@ -248,9 +222,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _explosion: {fileID: 0}
-  _layerCollider:
-    serializedVersion: 2
-    m_Bits: 2048
+  _layerCollider: 0
+  _coin: {fileID: 7243181520837781828, guid: 3df3bd4f464baae4c9a1defa89360610, type: 3}
+  _coinAmount: 10
+  _coinSpawnOffset: 0.683
+--- !u!70 &4269533203597108542
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3668729541090728988}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.032677982, y: 0.09803092}
+  m_Size: {x: 5.081113, y: 3.4771752}
+  m_Direction: 1
 --- !u!1 &5351838459064852213
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +253,7 @@ GameObject:
   - component: {fileID: 5875751004345734160}
   - component: {fileID: 3200504317048223990}
   - component: {fileID: 2354689887196353899}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,6 +14,8 @@ public class Arrow : MonoBehaviour
 
     private         float           timeVisibleRegister     =       0f;
 
+    private         bool            isNerf                  =       false;
+
     [HideInInspector]
     public          bool            see                     =       false;
 
@@ -27,6 +29,8 @@ public class Arrow : MonoBehaviour
     {
         transform.position = new Vector2(_spring.position.x, transform.position.y);
 
+        timeVisibleRegister = Mathf.Clamp(timeVisibleRegister, 0.35f, 2);
+
         if (see)
         {
             if(_timeVisible <= 0)
@@ -34,11 +38,18 @@ public class Arrow : MonoBehaviour
                 _timeVisible = timeVisibleRegister;
                 anim.SetBool("IsEnabled", false);
                 see = false;
+                isNerf = false;
             }
             else
             {
                 anim.SetBool("IsEnabled", true);
                 _timeVisible -= Time.deltaTime;
+
+                if (!isNerf)
+                {
+                    timeVisibleRegister -= 0.025f;
+                    isNerf = true;
+                }
             }
         }
     }
